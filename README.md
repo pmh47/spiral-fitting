@@ -14,9 +14,9 @@ See this [report](https://docs.google.com/document/d/1ZOIqtG7IbgaW4moWmjYCIeBsyQ
   - only the /2 scale is used
   - path at L22 of fit_spiral.py
 - horizontal fiber predictions from Sean, [here](https://dl.ash2txt.org/community-uploads/bruniss/Fiber-and-Surface-Models/GP-Predictions/3d-zarr/mask-hz-only_rescaled.zarr/)
-  - path at L10 of extract_fibre_ccs_hz.py
+  - path at L161 of extract_fibre_ccs.py
 - vertical fiber predictions from Sean, [here](https://dl.ash2txt.org/community-uploads/bruniss/scrolls/s1/fibers/new-fiber-preds/hz_regular/)
-  - path at L10 of extract_fibre_ccs_vt.py
+  - path at L170 of extract_fibre_ccs.py
   - these first need converting to zarr with [grids_to_zarr.py](https://dl.ash2txt.org/community-uploads/bruniss/scrolls/helper-scripts/grids_to_zarr.py) (change paths at L189-190)
 - surface predictions from Sean, [here](https://dl.ash2txt.org/community-uploads/bruniss/Fiber-and-Surface-Models/GP-Predictions/updated_zarrs/surface2xt-updated_ome.zarr/)
   - path at L17 of extract_surface_tracks.py

@@ -7,21 +7,6 @@ import numpy as np
 from tqdm import tqdm
 
 
-predictions_zarr_path = '../data/original/bruniss/Fiber-and-Surface-Models/GP-Predictions/3d-zarr/mask-hz-only_rescaled.zarr'
-cc_zarr_path = '../out/fibres/2024-10-31_bruniss_hz-only/cc.zarr/2'
-skeleton_zarr_path = '../out/fibres/2024-10-31_bruniss_hz-only/skeleton.zarr/2'
-skeleton_pkl_path = '../out/fibres/2024-10-31_bruniss_hz-only/skeleton.pkl'
-shape_yx_transposed = True  # use for 2024-10-31 predictions at least
-early_downsample_factor = 2  # applied immediately after loading, using striding
-late_downsample_factor = 2  # applied after cc'ing, using max-pooling
-predictions_threshold = 200  # 200 for surfaces & older hz-fibres; 0.5 for new vt-fibres
-z_min, z_max = 0, 3594  # wrt target (maybe-downsampled) volume
-z_chunk_depth = 80  # should be as large as fits in memory (to minimise number of cc 'boundaries' requiring expensive merging)
-skeletonisation_chunk_depth = 300  # should be large enough to track long vertical fibres
-dust_threshold = 150  # wrt target (downsampled) volume
-
-
-
 def main():
 
     print('loading zarr')
@@ -163,4 +148,29 @@ def main():
 
 
 if __name__ == '__main__':
+
+    # Common settings
+    early_downsample_factor = 2  # applied immediately after loading, using striding
+    late_downsample_factor = 2  # applied after cc'ing, using max-pooling
+    z_min, z_max = 0, 3594  # wrt target (maybe-downsampled) volume
+    z_chunk_depth = 80  # should be as large as fits in memory (to minimise number of cc 'boundaries' requiring expensive merging)
+    skeletonisation_chunk_depth = 300  # should be large enough to track long vertical fibres
+    dust_threshold = 150  # wrt target (downsampled) volume
+
+    # Horizontal fibres
+    predictions_zarr_path = '../data/original/bruniss/Fiber-and-Surface-Models/GP-Predictions/3d-zarr/mask-hz-only_rescaled.zarr'
+    cc_zarr_path = '../out/fibres/2024-10-31_bruniss_hz-only/cc.zarr/2'
+    skeleton_zarr_path = '../out/fibres/2024-10-31_bruniss_hz-only/skeleton.zarr/2'
+    skeleton_pkl_path = '../out/fibres/2024-10-31_bruniss_hz-only/skeleton.pkl'
+    shape_yx_transposed = True  # use for 2024-10-31 predictions at least
+    predictions_threshold = 200  # 200 for surfaces & older hz-fibres; 0.5 for new vt-fibres
+    main()
+
+    # Vertical fibres
+    predictions_zarr_path = '../data/zarr/bruniss/scrolls/s1/fibers/new-fiber-preds/hz_regular'  # note the original file is misnamed hz!
+    cc_zarr_path = '../out/fibres/2024-12-26_bruniss_vt-reg/cc.zarr/2'
+    skeleton_zarr_path = '../out/fibres/2024-12-26_bruniss_vt-reg/skeleton.zarr/2'
+    skeleton_pkl_path = '../out/fibres/2024-12-26_bruniss_vt-reg/skeleton.pkl'
+    shape_yx_transposed = False  # apparently fixed in newer predictions
+    predictions_threshold = 0.5  # ...since it's a binary volume
     main()
