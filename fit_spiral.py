@@ -864,6 +864,8 @@ def fit_spiral_3d(scroll_zarr, predictions_zarr, horizontal_fibre_zyxs, vertical
         for track_zyxs in surface_track_zyxs
     ]
 
+    print('loading slices for visualisation')
+
     predictions_subvolume = torch.from_numpy(predictions_zarr[z_begin : z_end])
     assert predictions_subvolume.dtype == torch.uint8
 
@@ -1155,19 +1157,20 @@ def main():
 
     slice_range = 0, 3420
 
-    print('filtering fibres/tracks/normals')
-    def filter_tracks(tracks):
-        return [track for track in tracks if np.any((track[:, 0] >= slice_range[0]) & (track[:, 0] < slice_range[1]))]
-    horizontal_fibre_tracks = filter_tracks(horizontal_fibre_tracks)
-    vertical_fibre_tracks = filter_tracks(vertical_fibre_tracks)
-    surface_tracks = [filter_tracks(tracks) for tracks in surface_tracks]
-    points_and_normals = points_and_normals[(points_and_normals[:, 0, 0] >= slice_range[0]) & (points_and_normals[:, 0, 0] < slice_range[1])]
-    point_pairs_and_number_differences = [
-        (start_zyx, end_zyx, number_difference)
-        for start_zyx, end_zyx, number_difference in point_pairs_and_number_differences
-        if np.any((start_zyx[0] >= slice_range[0]) & (start_zyx[0] < slice_range[1]))
-        or np.any((end_zyx[0] >= slice_range[0]) & (end_zyx[0] < slice_range[1]))
-    ]
+    if slice_range[0] > 0 or slice_range[1] < 3420:
+        print('filtering fibres/tracks/normals')
+        def filter_tracks(tracks):
+            return [track for track in tracks if np.any((track[:, 0] >= slice_range[0]) & (track[:, 0] < slice_range[1]))]
+        horizontal_fibre_tracks = filter_tracks(horizontal_fibre_tracks)
+        vertical_fibre_tracks = filter_tracks(vertical_fibre_tracks)
+        surface_tracks = [filter_tracks(tracks) for tracks in surface_tracks]
+        points_and_normals = points_and_normals[(points_and_normals[:, 0, 0] >= slice_range[0]) & (points_and_normals[:, 0, 0] < slice_range[1])]
+        point_pairs_and_number_differences = [
+            (start_zyx, end_zyx, number_difference)
+            for start_zyx, end_zyx, number_difference in point_pairs_and_number_differences
+            if np.any((start_zyx[0] >= slice_range[0]) & (start_zyx[0] < slice_range[1]))
+            or np.any((end_zyx[0] >= slice_range[0]) & (end_zyx[0] < slice_range[1]))
+        ]
     print(f'  found {len(horizontal_fibre_tracks):,} horizontal & {len(vertical_fibre_tracks):,} vertical fibres, {" + ".join([f"{len(tracks):,}" for tracks in surface_tracks])} surface tracks, {len(points_and_normals):,} normals, {len(point_pairs_and_number_differences):,} interwinding pairs')
 
     out_path = f'../out/postprocessing/{datetime.date.today()}_slice-{slice_range[0]}-{slice_range[1]}'
