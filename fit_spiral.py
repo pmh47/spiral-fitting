@@ -38,7 +38,7 @@ default_config = {
     'random_seed': 0,
     'learning_rate': 5.e-4,
     'cosine_lr_schedule': False,
-    'num_training_steps': 10000,
+    'num_training_steps': 20000,
     'num_euler_timesteps': 16,
     'num_flow_timesteps': 1,
     'flow_bounds_z_margin': 40,
@@ -59,10 +59,10 @@ default_config = {
     'loss_weight_fibre_direction': 5.e0,
     'loss_weight_surface_count': 1.e1,
     'loss_weight_surface_normal': 2.e2,
-    'loss_weight_stretch': 1.e2,
+    'loss_weight_stretch': 2.e2,
     'loss_weight_umbilicus': 1.,
-    'loss_start_fibre_track_dt': 7500,
-    'loss_stop_surface_count': 10000,
+    'loss_start_fibre_track_dt': 10000,
+    'loss_stop_surface_count': 20000,
 }
 
 
