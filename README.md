@@ -1,10 +1,20 @@
 
-# Autosegmentation by Spiral Fitting
+# Virtually Unrolling the Herculaneum Papyri by Diffeomorphic Spiral Fitting
 
-This is an attempt at autosegmentation (i.e. automated digital unrolling) of papyrus scrolls as part of the  [Vesuvius Challenge](https://scrollprize.org).
+This repository implements a method for automated digital unrolling of papyrus scrolls as part of the  [Vesuvius Challenge](https://scrollprize.org).
 
-See this [report](https://docs.google.com/document/d/1ZOIqtG7IbgaW4moWmjYCIeBsyQRNoonQe_KtAnQp8gw/view) for more details on the method.
+The method is described in the paper _Virtually Unrolling the Herculaneum Papyri by Diffeomorphic Spiral Fitting_, Henderson, WACV 2026, [available on arXiv](https://arxiv.org/abs/2512.04927). The work was awarded a $30K prize by the Vesuvius Challenge; see this [report](https://docs.google.com/document/d/1ZOIqtG7IbgaW4moWmjYCIeBsyQRNoonQe_KtAnQp8gw/view) for the original submission and this [substack post](https://scrollprize.substack.com/p/awarding-the-amazing-autosegmentation) for the prize announcement.
 
+### BibTeX
+
+```
+@article{henderson26wacv,
+  title={Virtually Unrolling the Herculaneum Papyri by Diffeomorphic Spiral Fitting},
+  author={Paul Henderson},
+  journal={IEEE/CVF Winter Conference on Applications of Computer Vision},
+  year={2026}
+}
+```
 
 ## Instructions
 
